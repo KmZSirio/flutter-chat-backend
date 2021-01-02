@@ -16,11 +16,25 @@ const generateJWT = (uid) => {
                 resolve(token);
             }
         });
-
     });
-
 }
 
+const checkJWT = (token = "") => {
+
+    try {
+
+        const { uid } = jwt.verify(token, process.env.JWT_KEY);
+        // req.uid = uid;
+
+        return [true, uid];
+
+    } catch (e) {
+        return [false, null];
+    }
+}
+
+
 module.exports = {
-    generateJWT
+    generateJWT,
+    checkJWT
 }
